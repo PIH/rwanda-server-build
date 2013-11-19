@@ -9,6 +9,8 @@ Questions
 2. Do we trim database nightly or on demand?
 3. How do we handle errors or recover from incomplete builds?
 
+Steps
+
 1. Get latest version of OpenMRS database -- de-identified, trimmed, metadata only
 2. Get latest version of OpenMRS software (war and modules)
 3. Stop tomcat 
