@@ -1,0 +1,4 @@
+MAILTO=eball@pih.org,jmbabazi@pih.org
+
+# Every night at 1:30AM, copy all the openmrs files to staging server
+30 1 * * * $HOME/staging-scripts/nightly-copy.sh
