@@ -1,13 +1,18 @@
-rwanda-server-build
+server-build
 ===================
 
-Build scripts for Rwanda IMB servers (reporting, test, demo, dev, etc)
+Build scripts for PIH OpenMRS servers (reporting, test, demo, dev, etc)
+
+Assumptions
+
+1. Use puppet for building servers and updating openmrs?
+2. Use scripts and cron for building staging server with latest versions of war, omods and db 
+3. Trim database nightly on staging server
 
 Questions
 
-1. Should we use puppet for building servers?  updating openmrs?  updating database? 
-2. Do we trim database nightly or on demand?
-3. How do we handle errors or recover from incomplete builds?
+1. How do we handle errors or recover from incomplete builds?
+2. Which user should run the scripts -- for staging server and puppet scripts?
 
 Steps
 
@@ -22,4 +27,17 @@ Steps
 Setup steps
 
 1. Password-less file transfer
-2. Recovery from incomplete builds
+
+(see private/directions.txt)
+
+Manifest
+========
+
+README.md:			General description (this file)
+staging-scripts/
+  setup-folders.sh:		Setup directories for staging server
+  nightly-copy.sh:		Nightly copy of war, modules, databases 
+  crontab:				Crontab for the nightly copy 
+private
+  config-rwanda.sh:		Specific variables for Rwanda and 2 production servers
+  directions.txt:		Instruction for password-less setup
