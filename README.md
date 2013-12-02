@@ -1,22 +1,22 @@
 server-build
 ===================
-
 Build scripts for PIH OpenMRS servers (reporting, test, demo, dev, etc)
 
 Assumptions
-
 1. Use puppet for building servers and updating openmrs?
 2. Use scripts and cron for building staging server with latest versions of war, omods and db 
 3. Trim database nightly on staging server
 
 Questions
-
 1. How do we handle errors or recover from incomplete builds?
 2. Which user should run the scripts -- for staging server and puppet scripts?
 
-Steps
+Setup
+1. Display instructions for password-less file transfer (setup-keys.sh)
+2. Create directory structure (setup-folder.sh)
 
-1. Get latest version of OpenMRS database -- de-identified, trimmed, metadata only
+Puppet setup of OpenMRS server
+1. Choose and get latest appropriate of OpenMRS database -- de-identified, trimmed, metadata only
 2. Get latest version of OpenMRS software (war and modules)
 3. Stop tomcat 
 4. Cleanup tomcat directories (webapps/openmrs, work, temp, logs?)
@@ -24,20 +24,13 @@ Steps
 6. Source database
 7. Start tomcat
 
-Setup steps
-
-1. Password-less file transfer
-
-(see private/directions.txt)
-
 Manifest
 ========
-
 README.md:			General description (this file)
 staging-scripts/
-  setup-folders.sh:		Setup directories for staging server
-  nightly-copy.sh:		Nightly copy of war, modules, databases 
   crontab:				Crontab for the nightly copy 
-private
-  config-rwanda.sh:		Specific variables for Rwanda and 2 production servers
-  directions.txt:		Instruction for password-less setup
+  nightly-copy.sh:		Nightly copy of war, modules, databases
+  setup-folders.sh:		Setup directories for staging server
+  setup-keys.sh 		Instructions for password-less setup
+conf
+  rwanda.sh:			Specific variables for Rwanda (2 production servers)

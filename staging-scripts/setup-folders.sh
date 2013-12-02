@@ -3,10 +3,10 @@
 # Create all the staging server directories for openmrs
 # -- openmrs war
 # -- openmrs modules
-# -- openmrs databases (butaro and rwink)
+# -- openmrs databases (server 1 and 2)
 
 #echo 'Run this as the tomcat6 user'
-echo "This staging area is seup by $(whoami) user"
+echo "This staging area is created by $(whoami) user"
 mkdir ${HOME}/staging
 cd ${HOME}/staging
 echo "  in $(pwd) directory"

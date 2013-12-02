@@ -1,14 +1,14 @@
 #!/bin/bash
 
-echo 'Enter the command with one argument (rwanda|malawi)'
+set -e
 
-# Get/set all variables
-source config-$1.sh
-
-
-echo "Password-less access is needed for user $REMOTE_USER_NAME"
-echo " on these servers:"
-echo "     $PROD_WAR_SERVER $PROD_OMOD_SERVER $PROD_DB_SERVER1 and $PROD_DB_SERVER2"
+case $1 in
+	rwanda )	source ../conf/$1.sh;;
+	malawi ) 	echo "$1 configuration is incomplete"
+			 	exit 1 ;;
+	* )  		echo "Usage: $0 rwanda|malawi"
+		 		exit 1
+esac
 
 # The directories were created by the setup-folders.sh script
 cd $STAGING_HOME
