@@ -3,11 +3,12 @@
 set -e
 
 case $1 in
-	rwanda )	source ../conf/$1.sh;;
-	malawi ) 	echo "$1 configuration is incomplete"
-			 	exit 1 ;;
-	* )  		echo "Usage: $0 rwanda|malawi"
-		 		exit 1
+	rwanda )		source ../conf/$1.sh;;
+	rwanda-local )	source ../conf/$1.sh;;
+	malawi ) 		echo "$1 configuration is incomplete"
+			 		exit 1 ;;
+	* )  			echo "Usage: $0 rwanda|rwanda-local|malawi"
+		 			exit 1
 esac
 
 # The directories were created by the setup-folders.sh script
