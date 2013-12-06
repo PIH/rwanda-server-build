@@ -31,12 +31,12 @@ Puppet setup of OpenMRS server
 
 Manifest
 
-README.md:			General description (this file)
+README.md:						General description (this file)
 staging-scripts/
-  crontab:				Crontab for the nightly copy 
+  crontab:						Crontab for the nightly copy 
   nightly-copy.sh:		Nightly copy of war, modules, databases
   setup-folders.sh:		Setup directories for staging server
-  setup-keys.sh 		Instructions for password-less setup
+  setup-keys.sh 			Instructions for password-less setup
 conf
-  rwanda.sh:			Specific variables for Rwanda (2 production servers)
-  rwanda-local.sh Similar to previous file, but with local IP addresses and ports
+  rwanda.sh:					Specific variables for Rwanda (2 production servers)
+  rwanda-local.sh: 		Similar to previous file, but with local IP addresses and ports
