@@ -42,16 +42,18 @@ echo "Copy current database from $PROD_DB_SERVER2 server"
 scp -P $PROD_DB_SERVER2_PORT $REMOTE_USER_NAME@$PROD_DB_SERVER2:$PROD_DB_SERVER2_FILE server2/openmrs.tar.7z
 ln -s server2 $SERVER2
 
-# Show date/time of last update
-echo 'Create the timestamp'
-cd $STAGING_HOME
-touch LAST-UPDATE
-
 # Unpack the databases
 echo "Unpack the $PROD_DB_SERVER1 database"
 cd server1
+rm -f openmrs.sql openmrs.tar.7z
 7za x $PROD_DB1_PASSWORD -so openmrs.tar.7z | tar xf -
 
 echo "Unpack the $PROD_DB_SERVER2 database"
 cd ../server2
+rm -f openmrs.sql openmrs.tar.7z
 7za x $PROD_DB2_PASSWORD -so openmrs.tar.7z | tar xf -
+
+# Show date/time of last update
+echo 'Create the timestamp'
+cd $STAGING_HOME
+touch LAST-UPDATE
