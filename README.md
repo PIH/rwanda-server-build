@@ -14,6 +14,7 @@ Questions
 Setup
 1. Display instructions for password-less file transfer (setup-keys.sh)
 2. Create directory structure (setup-folder.sh)
+3. Install git, maven, and 7-zip (apt-get install git maven p7zip-full)
 
 Puppet setup of OpenMRS server
 1. Choose and get latest appropriate of OpenMRS database -- de-identified, trimmed, metadata only
