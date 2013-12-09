@@ -3,11 +3,12 @@
 set -e
 
 case $1 in
-	rwanda )		source ../conf/$1.sh;;
-	rwanda-local )	source ../conf/$1.sh;;
+	rwink | butaro | rwink-local | butaro-local )		source $HOME/.envStaging/$1.sh;;
+
 	malawi ) 		echo "$1 configuration is incomplete"
 			 		exit 1 ;;
-	* )  			echo "Usage: $0 rwanda|rwanda-local|malawi"
+
+	* )  			echo "Usage: $0 rwink|butaro|rwink-local|butaro-local|malawi"
 		 			exit 1
 esac
 
@@ -34,24 +35,14 @@ scp -P $PROD_OMOD_PORT $REMOTE_USER_NAME@$PROD_OMOD_SERVER:$PROD_OMOD_FILES .
 # Copy database from production server #1
 echo "Copy current database from $PROD_DB_SERVER1 server"
 cd $STAGING_HOME/database/production
-scp -P $PROD_DB_SERVER1_PORT $REMOTE_USER_NAME@$PROD_DB_SERVER1:$PROD_DB_SERVER1_FILE server1/openmrs.tar.7z
+scp -P $PROD_DB_SERVER_PORT $REMOTE_USER_NAME@$PROD_DB_SERVER:$PROD_DB_SERVER_FILE openmrs.tar.7z
 ln -s server1 $SERVER1
 
-# Copy database from production server #2
-echo "Copy current database from $PROD_DB_SERVER2 server"
-scp -P $PROD_DB_SERVER2_PORT $REMOTE_USER_NAME@$PROD_DB_SERVER2:$PROD_DB_SERVER2_FILE server2/openmrs.tar.7z
-ln -s server2 $SERVER2
-
 # Unpack the databases
-echo "Unpack the $PROD_DB_SERVER1 database"
+echo "Unpack the $PROD_DB_SERVER database"
 cd server1
 rm -f openmrs.sql openmrs.tar.7z
-7za x $PROD_DB1_PASSWORD -so openmrs.tar.7z | tar xf -
-
-echo "Unpack the $PROD_DB_SERVER2 database"
-cd ../server2
-rm -f openmrs.sql openmrs.tar.7z
-7za x $PROD_DB2_PASSWORD -so openmrs.tar.7z | tar xf -
+7za x $PROD_DB_PASSWORD -so openmrs.tar.7z | tar xf -
 
 # Show date/time of last update
 echo 'Create the timestamp'

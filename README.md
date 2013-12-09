@@ -2,6 +2,12 @@ server-build
 ===================
 Build scripts for PIH OpenMRS servers (reporting, test, demo, dev, etc)
 
+This builds a directory hierarchy on the staging serverwith the appropriate version of OpenMRS, modules and databases.  This is created under $HOME/staging/$IMPLEMENTATION where IMPLEMENTATION = rwink, butaro, lower-neno, upper-neno, etc.
+
+	warfile:	
+	modules:	production and dev
+	databases:	production, de-identified, trimmed, etc
+
 Assumptions
 
 1. Use puppet for building servers and updating openmrs?
@@ -15,9 +21,13 @@ Questions
 
 Setup
 
-1. Display instructions for password-less file transfer (setup-keys.sh)
-2. Create directory structure (setup-folder.sh)
-3. Install git, maven, jdk, and 7-zip (apt-get install git maven p7zip-full openjdk-6-jdk)
+1. Create $HOME/.envStaging
+2. cp conf/template-env-file.sh to $HOME/.envStaging/[countryName].sh
+3. Modify the configure file (ie. rwanda, malawi, etc.) for specific variables
+4. Display instructions for password-less file transfer (setup-keys.sh)
+5. Create directory structure (setup-folder.sh)
+5. Install git, maven, jdk, and 7-zip (apt-get install git maven p7zip-full openjdk-6-jdk)
+ 
 
 Puppet setup of OpenMRS server
 
@@ -29,7 +39,7 @@ Puppet setup of OpenMRS server
 6. Source database
 7. Start tomcat
 
-Manifest
+Manifest for staging-server-build
 
 README.md:						General description (this file)
 staging-scripts/
