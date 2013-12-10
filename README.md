@@ -28,10 +28,16 @@ Run these as "normal" user (ie. ball, tomcat6, openmrs, or whatever), except as 
 3. Modify the configure file (ie. rwanda, malawi, etc.) for specific variables
 4. Create $HOME/.envStaging/userlist.conf from conf/userlist.conf
 5. [sudo] Create Linux users and install pre-requisitive software (sudo users-and-packages.sh)
-4. Display instructions for password-less file transfer (setup-keys.sh)
-5. Create directory structure (setup-folder.sh)
+6. Display instructions for password-less file transfer (setup-keys.sh)
+7. Create directory structure (setup-folder.sh)
 
- 
+Install database export (install-db-exporter.sh)
+
+1. git clone https://github.com/PIH/openmrs-contrib-databaseexporter database-exporter
+2. cd database-exporter
+3. mvn clean package -DskipTests
+4. cp target/databaseexporter-1.0-SNAPSHOT-jar-with-dependencies.jar to appropriate place 
+
 
 Puppet setup of OpenMRS server
 
