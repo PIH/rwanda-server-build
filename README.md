@@ -21,12 +21,18 @@ Questions
 
 Setup
 
+Run these commands as root user
+
+1. install pre-requisitive applications (git, maven, jdk, and 7-zip) along with creating Linux user accounts (install-apps.sh)
+
+Run these as "normal" user (ie. ball, tomcat6, openmrs, or whatever)
+
 1. Create $HOME/.envStaging
 2. cp conf/env-template.conf to $HOME/.envStaging/[countryName].conf
 3. Modify the configure file (ie. rwanda, malawi, etc.) for specific variables
 4. Display instructions for password-less file transfer (setup-keys.sh)
 5. Create directory structure (setup-folder.sh)
-5. Install git, maven, jdk, and 7-zip (install-apps.sh)
+
  
 
 Puppet setup of OpenMRS server
