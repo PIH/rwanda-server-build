@@ -31,11 +31,13 @@ echo 'Create warfile directory for production and dev/test'
 mkdir -p warfile
 
 echo 'Create modules directories'
+rm -rf modules
 mkdir -p modules/
 mkdir -p modules/production
 mkdir -p modules/dev
 
 echo 'Create database directories'
+rm -rf database
 mkdir -p database
 mkdir -p database/production
 mkdir -p database/de-identified
