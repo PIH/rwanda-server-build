@@ -32,16 +32,14 @@ then
 fi
 scp -P $PROD_OMOD_PORT $REMOTE_USER_NAME@$PROD_OMOD_SERVER:$PROD_OMOD_FILES .
 
-# Copy database from production server #1
-echo "Copy current database from $PROD_DB_SERVER1 server"
+# Copy database from production server
+echo "Copy current database from $PROD_DB_SERVER server"
 cd $STAGING_HOME/database/production
+rm -f openmrs.sql
 scp -P $PROD_DB_SERVER_PORT $REMOTE_USER_NAME@$PROD_DB_SERVER:$PROD_DB_SERVER_FILE openmrs.tar.7z
-ln -s server1 $SERVER1
 
 # Unpack the databases
 echo "Unpack the $PROD_DB_SERVER database"
-cd server1
-rm -f openmrs.sql openmrs.tar.7z
 7za x $PROD_DB_PASSWORD -so openmrs.tar.7z | tar xf -
 
 # Show date/time of last update
