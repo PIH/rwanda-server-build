@@ -14,25 +14,25 @@ To run the database export tool, you would execute the following:
 
 Typical configurations should be:
 
-#### To export the full, de-identified database:#### 
+#### To export the full, de-identified database:
 
 trimArchiveData.json
 
-#### To export a de-identified database with a large subset of patients: #### 
+#### To export a de-identified database with a large subset of patients:
 
 removeSyncData
 rwanda/deidentify
 rwanda/trimPatientsLarge
 rwanda/trimArchiveData
 
-#### To export a de-identified database with a small subset of patients: #### 
+#### To export a de-identified database with a small subset of patients:
 
 removeSyncData
 rwanda/deidentify
 rwanda/trimPatientsSmall
 rwanda/trimArchiveData
 
-#### To export a database with all patients and nearly all users and providers removed: #### 
+#### To export a database with all patients and nearly all users and providers removed:
 
 removeSyncData
 removeAllPatients
