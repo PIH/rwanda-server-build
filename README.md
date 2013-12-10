@@ -21,15 +21,13 @@ Questions
 
 Setup
 
-Run these commands as root user
-
-1. install pre-requisitive applications (git, maven, jdk, and 7-zip) along with creating Linux user accounts (install-apps.sh)
-
-Run these as "normal" user (ie. ball, tomcat6, openmrs, or whatever)
+Run these as "normal" user (ie. ball, tomcat6, openmrs, or whatever), except as noted:
 
 1. Create $HOME/.envStaging
 2. cp conf/env-template.conf to $HOME/.envStaging/[countryName].conf
 3. Modify the configure file (ie. rwanda, malawi, etc.) for specific variables
+4. Create $HOME/.envStaging/userlist.conf from conf/userlist.conf
+5. [sudo] Create Linux users and install pre-requisitive software (sudo users-and-packages.sh)
 4. Display instructions for password-less file transfer (setup-keys.sh)
 5. Create directory structure (setup-folder.sh)
 

@@ -8,10 +8,11 @@
 set -e
 
 case $1 in
-	rwink | butaro ) echo "Creating $HOME/staging/$1 directory";;
+	rwink | butaro ) 	echo "Creating $HOME/staging/$1 directory"
+						source $HOME/.envStaging/$1.conf;;
 
 	malawi | neno ) 	echo "$1 configuration is incomplete, but rwanda works ;)"
-			 	exit 1 ;;
+			 			exit 1 ;;
 
 	* )  		echo "Usage: $0 rwink|butaro|malawi"
 		 		exit 1
@@ -19,23 +20,23 @@ esac
 
 #echo 'Run this as the tomcat6 user'
 echo "This staging area is created by $(whoami) user"
-mkdir $HOME/staging
+mkdir -p $HOME/staging
 cd $HOME/staging
 echo "  in $(pwd) directory"
 echo ''
-mkdir $STAGING_HOME
+mkdir -p $STAGING_HOME
 cd $STAGING_HOME
 
 echo 'Create warfile directory for production and dev/test'
-mkdir warfile
+mkdir -p warfile
 
 echo 'Create modules directories'
-mkdir modules/
-mkdir modules/production
-mkdir modules/dev
+mkdir -p modules/
+mkdir -p modules/production
+mkdir -p modules/dev
 
 echo 'Create database directories'
-mkdir database
-mkdir database/production
-mkdir database/de-identified
-mkdir database/de-id-and-trim
+mkdir -p database
+mkdir -p database/production
+mkdir -p database/de-identified
+mkdir -p database/de-id-and-trim
