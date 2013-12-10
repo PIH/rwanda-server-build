@@ -1,0 +1,10 @@
+{
+	"patientFilter": {
+		"queries": [
+			{
+				"@class" : "org.openmrs.contrib.databaseexporter.query.PatientIdQuery",
+				"ids": [0]
+			}
+		]
+	}
+}
