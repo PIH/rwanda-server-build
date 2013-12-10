@@ -3,7 +3,7 @@
 set -e
 
 case $1 in
-	rwink | butaro | rwink-local | butaro-local )		source $HOME/.envStaging/$1.sh;;
+	rwink | butaro | rwink-local | butaro-local )		source $HOME/.envStaging/$1.conf;;
 
 	malawi ) 		echo "$1 configuration is incomplete"
 			 		exit 1 ;;

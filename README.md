@@ -22,11 +22,11 @@ Questions
 Setup
 
 1. Create $HOME/.envStaging
-2. cp conf/template-env-file.sh to $HOME/.envStaging/[countryName].sh
+2. cp conf/env-template.conf to $HOME/.envStaging/[countryName].conf
 3. Modify the configure file (ie. rwanda, malawi, etc.) for specific variables
 4. Display instructions for password-less file transfer (setup-keys.sh)
 5. Create directory structure (setup-folder.sh)
-5. Install git, maven, jdk, and 7-zip (apt-get install git maven p7zip-full openjdk-6-jdk)
+5. Install git, maven, jdk, and 7-zip (install-apps.sh)
  
 
 Puppet setup of OpenMRS server
@@ -41,12 +41,11 @@ Puppet setup of OpenMRS server
 
 Manifest for staging-server-build
 
-README.md:						General description (this file)
+README.md:				General description (this file)
 staging-scripts/
-  crontab:						Crontab for the nightly copy 
+  crontab:				Crontab for the nightly copy 
   nightly-copy.sh:		Nightly copy of war, modules, databases
   setup-folders.sh:		Setup directories for staging server
-  setup-keys.sh 			Instructions for password-less setup
+  setup-keys.sh 		Instructions for password-less setup
 conf
-  rwanda.sh:					Specific variables for Rwanda (2 production servers)
-  rwanda-local.sh: 		Similar to previous file, but with local IP addresses and ports
+  env-template:			Template file with variables for build

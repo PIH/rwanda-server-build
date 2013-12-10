@@ -13,4 +13,13 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
-apt-get install git maven p7zip-full openjdk-6-jdk
+#apt-get install git maven p7zip-full openjdk-6-jdk
+
+# Loop thru users who are defined in a configuration file
+source /home/ball/.envStaging/usernames.conf
+
+for user in $USERLIST
+do
+	useradd $user -s /bin/bash -m -p `openssl passwd $TEMP_PASSWD` -G sudo 
+done
+

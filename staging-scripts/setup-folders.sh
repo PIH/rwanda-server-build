@@ -10,7 +10,7 @@ set -e
 case $1 in
 	rwink | butaro ) echo "Creating $HOME/staging/$1 directory";;
 
-	malawi ) 	echo "$1 configuration is incomplete, but rwanda works ;)"
+	malawi | neno ) 	echo "$1 configuration is incomplete, but rwanda works ;)"
 			 	exit 1 ;;
 
 	* )  		echo "Usage: $0 rwink|butaro|malawi"
