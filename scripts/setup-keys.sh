@@ -20,13 +20,21 @@ echo "  war:	$PROD_WAR_SERVER"
 echo "  omod:	$PROD_OMOD_SERVER"
 echo "  db: 	$PROD_DB_SERVER"
 echo ''
+
 echo 'Generate the local RSA key with this command: ssh-keygen -t rsa'
+ssh-keygen -t rsa
 echo ''
+
 echo "Transfer client key to war server ($PROD_WAR_SERVER)"
 echo "  ssh-copy-id $REMOTE_USER_NAME@$PROD_WAR_SERVER -p $PROD_WAR_PORT"
+ssh-copy-id $REMOTE_USER_NAME@$PROD_WAR_SERVER -p $PROD_WAR_PORT
 echo ''
+
 echo "Transfer client key to omod server ($PROD_OMOD_SERVER)"
 echo "  ssh-copy-id $REMOTE_USER_NAME@$PROD_OMOD_SERVER -p $PROD_OMOD_PORT"
+ssh-copy-id $REMOTE_USER_NAME@$PROD_OMOD_SERVER -p $PROD_OMOD_PORT
 echo ''
+
 echo "Transfer client key to DB Server ($PROD_DB_SERVER)"
 echo "  ssh-copy-id $REMOTE_USER_NAME@$PROD_DB_SERVER -p $PROD_DB_SERVER_PORT"
+ssh-copy-id $REMOTE_USER_NAME@$PROD_DB_SERVER -p $PROD_DB_SERVER_PORT

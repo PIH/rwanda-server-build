@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# This will clean the old database from mysql, recreate a new database, grant user permissions,
+#	and source the production database on the staging server.
+
 set -e
 
 case $1 in
@@ -12,6 +15,19 @@ case $1 in
 		 			exit 1
 esac
 
+# Additional variables
+SQL_INIT=drop-and-create.sql
+
 # Create the $IMPLEMENTATION database
 cd $STAGING_HOME/database/production
-mysql –uroot -p$MYSQL_ROOT_PASSWD -A -e "set @db_name=$IMPLEMENTATION; source drop-and-create.sql;"
+rm -f $SQL_SCRIPT
+ln -s $SOURCE_HOME/scripts/$SQL_SCRIPT .
+
+# Drop and create blank database with user
+echo "Drop and create $IMPLEMENTATION database"
+echo "  and grant user openmrs access"
+mysql -u root -p$MYSQL_ROOT_PASSWD mysql -e "set @prod_db_name = '$IMPLEMENTATION'; set @myuser = '$MYSQL_USER'; set @passed = '$MYSQL_ROOT_PASSWD'; source $SQL_INIT;"
+
+# Source the database on the staging server
+echo "Source the production $IMPLEMENTATION database"
+mysql -u $MYSQL_USER -p$MYSQL_ROOT_PASSWD $IMPLEMENTATION -e "source openmrs.sql;"
