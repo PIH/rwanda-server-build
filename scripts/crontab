@@ -1,4 +1,14 @@
 MAILTO=eball@pih.org,jmbabazi@pih.org
 
-# Every night at 1:30AM, copy all the openmrs files to staging server
-30 1 * * * $HOME/staging-scripts/nightly-copy.sh
+# Every night (1:30AM), copy all the openmrs files to staging server
+# RWINKWAVU
+#30 1 * * * /home/ball/Workspace/staging-server-build/scripts/nightly-copy.sh rwink >> /home/ball/staging/logs/crontab.out
+0   1 * * * /home/ball/Workspace/staging-server-build/scripts/nightly-copy.sh rwink-local >> /home/ball/staging/logs/crontab.out
+
+# BUTARO
+#0  2 * * * /home/ball/Workspace/staging-server-build/scripts/nightly-copy.sh butaro >> /home/ball/staging/logs/crontab.out
+0  2 * * * /home/ball/Workspace/staging-server-build/scripts/nightly-copy.sh butaro-local >> /home/ball/staging/logs/crontab.out
+
+# Every night (2:30AM), drop and create the production mysql databases (rwink and butaro)
+30 2 * * * /home/ball/Workspace/staging-server-build/scripts/create-db-and-sql.sh rwink >> /home/ball/staging/logs/crontab.out
+0  3 * * * /home/ball/Workspace/staging-server-build/scripts/create-db-and-sql.sh butaro >> /home/ball/staging/logs/crontab.out

@@ -6,12 +6,13 @@
 set -e
 
 case $1 in
-	rwink | butaro | rwink-local | butaro-local )		source $HOME/.envStaging/$1.conf;;
+	rwink | butaro )
+					source $HOME/.envStaging/$1.conf;;
 
 	malawi ) 		echo "$1 configuration is incomplete"
 			 		exit 1 ;;
 
-	* )  			echo "Usage: $0 rwink|butaro|rwink-local|butaro-local|malawi"
+	* )  			echo "Usage: $0 rwink|butaro|malawi"
 		 			exit 1
 esac
 
@@ -20,8 +21,8 @@ SQL_INIT=drop-and-create.sql
 
 # Create the $IMPLEMENTATION database
 cd $STAGING_HOME/database/production
-rm -f $SQL_SCRIPT
-ln -s $SOURCE_HOME/scripts/$SQL_SCRIPT .
+rm -f $SQL_INIT
+ln -s $SOURCE_HOME/scripts/$SQL_INIT .
 
 # Drop and create blank database with user
 echo "Drop and create $IMPLEMENTATION database"
