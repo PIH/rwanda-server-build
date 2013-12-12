@@ -33,7 +33,7 @@ Setup configuration files
 
 1. cp $HOME/Workspace/staging-server-build/conf/env-template.conf $HOME/.envStaging/[countryName].conf
 2. Modify the configure file (ie. rwanda, malawi, etc.) for specific variables
-3. cp $HOME/Workspace/staging-server-build/conf/userlist.conf $HOME/.envStaging/.
+3. cp $HOME/Workspace/staging-server-build/conf/users.conf $HOME/.envStaging/.
 4. Modify list of users and temporary password
 5. Change crontab for the correct implementation(s)
 
@@ -51,7 +51,7 @@ Install database export (install-db-exporter.sh)
 
 1. cd $HOME/Workspace/database-exporter
 2. mvn clean package -DskipTests
-3. cp target/databaseexporter-1.0-SNAPSHOT-jar-with-dependencies.jar to appropriate place 
+3. cp target/databaseexporter-1.0-SNAPSHOT-jar-with-dependencies.jar $HOME/staging/bin/.
 
 Setup latest software and database - The cron will do this nightly.
 
@@ -72,9 +72,17 @@ Manifest for staging-server-build
 
 README.md:				General description (this file)
 staging-scripts/
-  crontab:				Crontab for the nightly copy 
   nightly-copy.sh:		Nightly copy of war, modules, databases
   setup-folders.sh:		Setup directories for staging server
   setup-keys.sh 		Instructions for password-less setup
 conf
-  env-template:			Template file with variables for build
+  crontab:				Crontab for the nightly copy
+  env-template.conf:	Template file with variables for each implementation
+  staging.conf:			Specific variables for staging server
+  users.conf:			Linux users and temporary password for staging server
+  database-exporter/	Configuration files for the database export
+  	README.md:			Documentation for using the database exporter
+  	removeAllPatients.json
+  	removeSyncData.json
+  	mirebalais/
+  	rwanda/

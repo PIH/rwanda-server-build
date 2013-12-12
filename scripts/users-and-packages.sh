@@ -19,7 +19,7 @@ do
 done
 
 # Get variables with usernames and a temporary password
-source /home/ball/.envStaging/usernames.conf
+source /home/ball/.envStaging/users.conf
 
 # Create Linux users with sudo permissions and temporary password
 for user in $USERLIST

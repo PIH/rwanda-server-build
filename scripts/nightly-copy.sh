@@ -5,6 +5,7 @@ set -e
 case $1 in
 	rwink | butaro | rwink-local | butaro-local )
 					source $HOME/.envStaging/$1.conf
+					source $HOME/.envStaging/staging.conf
 					echo ""
 					echo "Starting $0"
 					echo "Date: $(date)" 
@@ -46,6 +47,20 @@ scp -P $PROD_DB_SERVER_PORT $REMOTE_USER_NAME@$PROD_DB_SERVER:$PROD_DB_SERVER_FI
 # Unpack the databases
 echo "Unpack the $PROD_DB_SERVER database"
 7za x $PROD_DB_PASSWORD -so openmrs.tar.7z | tar xf -
+
+# database-exporter variables
+DB_EXP_URL="jdbc:mysql://localhost:3306/$IMPLEMENTATION?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8"
+
+cd ../de-identified
+echo "Create de-identified database"
+#echo "url: $DB_EXP_URL"
+#echo "user: $MYSQL_USER"
+#echo "password: $MYSQL_ROOT_PASSWD"
+java -jar $HOME/staging/bin/db-exporter.jar -url=$DB_EXP_URL -user=$MYSQL_USER -password=$MYSQL_ROOT_PASSWD -configDir=$SOURCE_HOME/conf removeSyncData.json rwanda/deidentify.json
+
+cd ../de-id-and-trim
+echo "Create de-identified and trimmed database"
+#TBD
 
 # Show date/time of last update
 echo 'Create the timestamp'
