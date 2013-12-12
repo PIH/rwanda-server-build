@@ -23,21 +23,40 @@ Setup
 
 Run these as "normal" user (ie. ball, tomcat6, openmrs, or whatever), except as noted:
 
-1. Create $HOME/.envStaging
-2. cp conf/env-template.conf to $HOME/.envStaging/[countryName].conf
-3. Modify the configure file (ie. rwanda, malawi, etc.) for specific variables
-4. Create $HOME/.envStaging/userlist.conf from conf/userlist.conf
-5. [sudo] Create Linux users and install pre-requisitive software (sudo users-and-packages.sh)
-6. Display instructions for password-less file transfer (setup-keys.sh)
-7. Create directory structure (setup-folder.sh)
+mkdir $HOME/.envStaging
+mkdir $HOME/Workspace
+cd $HOME/Workspace
+git clone https://github.com/PIH/openmrs-contrib-databaseexporter database-exporter
+git clone https://github.com/PIH/staging-server-build.git
+
+Setup configuration files 
+
+1. cp $HOME/Workspace/staging-server-build/conf/env-template.conf $HOME/.envStaging/[countryName].conf
+2. Modify the configure file (ie. rwanda, malawi, etc.) for specific variables
+3. cp $HOME/Workspace/staging-server-build/conf/userlist.conf $HOME/.envStaging/.
+4. Modify list of users and temporary password
+5. Change crontab for the correct implementation(s)
+
+Create Linux users and install pre-requisitive software 
+
+cd $HOME/Workspace/staging-server-build/scripts
+sudo ./users-and-packages.sh
+
+Setup staging directories and security keys
+
+1. Display instructions for password-less file transfer (setup-keys.sh)
+2. Create directory structure (setup-folder.sh [implementation_name]) (ie.  setup-folder.sh rwink)
 
 Install database export (install-db-exporter.sh)
 
-1. git clone https://github.com/PIH/openmrs-contrib-databaseexporter database-exporter
-2. cd database-exporter
-3. mvn clean package -DskipTests
-4. cp target/databaseexporter-1.0-SNAPSHOT-jar-with-dependencies.jar to appropriate place 
+1. cd $HOME/Workspace/database-exporter
+2. mvn clean package -DskipTests
+3. cp target/databaseexporter-1.0-SNAPSHOT-jar-with-dependencies.jar to appropriate place 
 
+Setup latest software and database - The cron will do this nightly.
+
+1. Nightly copy of war, modules, and db (nightly-copy.sh) (ie. ./nightly-copy.sh rwink)
+2. Initial setup of database (create-db-and-sql.sh) (ie. ./create-db-and-sql.sh rwink)
 
 Puppet setup of OpenMRS server
 
