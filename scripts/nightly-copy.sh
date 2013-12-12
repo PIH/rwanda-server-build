@@ -48,6 +48,23 @@ scp -P $PROD_DB_SERVER_PORT $REMOTE_USER_NAME@$PROD_DB_SERVER:$PROD_DB_SERVER_FI
 echo "Unpack the $PROD_DB_SERVER database"
 7za x $PROD_DB_PASSWORD -so openmrs.tar.7z | tar xf -
 
+# Additional variables
+SQL_INIT=drop-and-create.sql
+
+# Create the $IMPLEMENTATION database
+cd $STAGING_HOME/database/production
+rm -f $SQL_INIT
+ln -s $SOURCE_HOME/scripts/$SQL_INIT .
+
+# Drop and create blank database with user
+echo "Drop and create $IMPLEMENTATION database"
+echo "  and grant user openmrs access"
+mysql -u root -p$MYSQL_ROOT_PASSWD mysql -e "set @prod_db_name = '$IMPLEMENTATION'; set @myuser = '$MYSQL_USER'; set @passed = '$MYSQL_ROOT_PASSWD'; source $SQL_INIT;"
+
+# Source the database on the staging server
+echo "Source the production $IMPLEMENTATION database"
+mysql -u $MYSQL_USER -p$MYSQL_ROOT_PASSWD $IMPLEMENTATION -e "source openmrs.sql;"
+
 # database-exporter variables
 DB_EXP_URL="jdbc:mysql://localhost:3306/$IMPLEMENTATION?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8"
 
