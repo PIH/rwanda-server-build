@@ -7,7 +7,12 @@ set -e
 
 case $1 in
 	rwink | butaro )
-					source $HOME/.envStaging/$1.conf;;
+					source $HOME/.envStaging/$1.conf
+					source $HOME/.envStaging/staging.conf
+					echo ""
+					echo "Starting $0"
+					echo "Date: `date`" 
+					echo "   Install the latest $1 database in mysql on staging server" ;;
 
 	malawi ) 		echo "$1 configuration is incomplete"
 			 		exit 1 ;;

@@ -24,8 +24,9 @@ source /home/ball/.envStaging/usernames.conf
 # Create Linux users with sudo permissions and temporary password
 for user in $USERLIST
 do
-	echo "Create $user Linux user account"
+	echo "Create $user Linux user account, add to sudo group, and force password change"
 	useradd $user -s /bin/bash -m -p `openssl passwd $TEMP_PASSWD` 
 	usermod -a -G sudo $user 
+	chage -d 0 $user
 done
 

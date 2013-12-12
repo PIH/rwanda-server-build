@@ -3,7 +3,12 @@
 set -e
 
 case $1 in
-	rwink | butaro | rwink-local | butaro-local )		source $HOME/.envStaging/$1.conf;;
+	rwink | butaro | rwink-local | butaro-local )
+					source $HOME/.envStaging/$1.conf
+					echo ""
+					echo "Starting $0"
+					echo "Date: $(date)" 
+					echo "  Copying the latest $1 files to the staging server" ;;
 
 	malawi ) 		echo "$1 configuration is incomplete"
 			 		exit 1 ;;
@@ -19,12 +24,12 @@ echo 'Clear out the timestamp'
 rm -f LAST-UPDATE
 
 # Copy production war file to staging
-echo "Copy war file from ${PROD_WAR_SERVER} to staging server"
+echo "Copy war file from $PROD_WAR_SERVER to staging server"
 cd $STAGING_HOME/warfile
 scp -P $PROD_WAR_PORT $REMOTE_USER_NAME@$PROD_WAR_SERVER:$PROD_WAR_FILE .
 
 # Copy modules to staging
-echo "Copy modules from ${PROD_OMOD_SERVER}:${PROD_OMOD_FILES} to staging server"
+echo "Copy modules from $PROD_OMOD_SERVER:$PROD_OMOD_FILES to staging server"
 cd $STAGING_HOME/modules/production
 if [ -f "*.omod" ]
 then
