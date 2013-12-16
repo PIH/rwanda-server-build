@@ -19,7 +19,6 @@ case $1 in
 		 		exit 1
 esac
 
-#echo 'Run this as the tomcat6 user'
 echo "This staging area is created by $(whoami) user"
 mkdir -p $HOME/staging
 cd $HOME/staging

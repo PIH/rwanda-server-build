@@ -7,8 +7,8 @@ case $1 in
 					source $HOME/.envStaging/$1.conf
 					source $HOME/.envStaging/staging.conf
 					echo ""
-					echo "Starting $0"
 					echo "Date: $(date)" 
+					echo "Starting $0"
 					echo "  Copying the latest $1 files to the staging server" ;;
 
 	malawi ) 		echo "$1 configuration is incomplete"
@@ -48,32 +48,27 @@ scp -P $PROD_DB_SERVER_PORT $REMOTE_USER_NAME@$PROD_DB_SERVER:$PROD_DB_SERVER_FI
 echo "Unpack the $PROD_DB_SERVER database"
 7za x $PROD_DB_PASSWORD -so openmrs.tar.7z | tar xf -
 
-# Additional variables
-SQL_INIT=drop-and-create.sql
-
 # Create the $IMPLEMENTATION database
 cd $STAGING_HOME/database/production
+SQL_INIT=drop-and-create.sql
 rm -f $SQL_INIT
 ln -s $SOURCE_HOME/scripts/$SQL_INIT .
 
 # Drop and create blank database with user
-echo "Drop and create $IMPLEMENTATION database"
-echo "  and grant user openmrs access"
+echo "Drop/create $IMPLEMENTATION database and grant user openmrs access"
 mysql -u root -p$MYSQL_ROOT_PASSWD mysql -e "set @prod_db_name = '$IMPLEMENTATION'; set @myuser = '$MYSQL_USER'; set @passed = '$MYSQL_ROOT_PASSWD'; source $SQL_INIT;"
 
 # Source the database on the staging server
 echo "Source the production $IMPLEMENTATION database"
 mysql -u $MYSQL_USER -p$MYSQL_ROOT_PASSWD $IMPLEMENTATION -e "source openmrs.sql;"
 
-# database-exporter variables
-DB_EXP_URL="jdbc:mysql://localhost:3306/$IMPLEMENTATION?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8"
-
 cd ../de-identified
 echo "Create de-identified database"
 #echo "url: $DB_EXP_URL"
 #echo "user: $MYSQL_USER"
 #echo "password: $MYSQL_ROOT_PASSWD"
-java -jar $HOME/staging/bin/db-exporter.jar -url=$DB_EXP_URL -user=$MYSQL_USER -password=$MYSQL_ROOT_PASSWD -configDir=$SOURCE_HOME/conf removeSyncData.json rwanda/deidentify.json
+DB_EXP_URL="jdbc:mysql://localhost:3306/$IMPLEMENTATION?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8"
+java $JAVA_PARA -jar $HOME/staging/bin/db-exporter.jar -url=$DB_EXP_URL -user=$MYSQL_USER -password=$MYSQL_ROOT_PASSWD -configDir=$SOURCE_HOME/conf removeSyncData.json rwanda/deidentify.json
 
 cd ../de-id-and-trim
 echo "Create de-identified and trimmed database"
