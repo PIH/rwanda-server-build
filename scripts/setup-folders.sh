@@ -47,3 +47,4 @@ mkdir -p database
 mkdir -p database/production
 mkdir -p database/de-identified
 mkdir -p database/de-id-and-trim
+mkdir -p database/no-patients
