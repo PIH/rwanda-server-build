@@ -70,7 +70,7 @@ DB_EXP_URL="jdbc:mysql://localhost:3306/$IMPLEMENTATION?autoReconnect=true&useUn
 DB_EXP_JAVA_PARAMS="$JAVA_PARA -jar $HOME/staging/bin/db-exporter.jar"
 DB_EXP_PARAMS="$DB_EXP_JAVA_PARAMS -url=$DB_EXP_URL -user=$MYSQL_USER -password=$MYSQL_ROOT_PASSWD -configDir=$SOURCE_HOME/conf"
 
-BUILDDIR=$SOURCE_HOME/conf/database-exporter/builds
+BUILDDIR=$SOURCE_HOME/conf/database-exporter/builds/$COUNTRY
 BUILDFILES=$BUILDDIR/*.conf
 for bf in $(basename $BUILDFILES)
 do
