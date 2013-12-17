@@ -24,6 +24,9 @@ cd $STAGING_HOME
 echo 'Clear out the timestamp'
 rm -f LAST-UPDATE
 
+# Check for memory leak
+#free -m
+
 # Copy production war file to staging
 echo "Copy war file from $PROD_WAR_SERVER to staging server"
 cd $STAGING_HOME/warfile
@@ -62,17 +65,37 @@ mysql -u root -p$MYSQL_ROOT_PASSWD mysql -e "set @prod_db_name = '$IMPLEMENTATIO
 echo "Source the production $IMPLEMENTATION database"
 mysql -u $MYSQL_USER -p$MYSQL_ROOT_PASSWD $IMPLEMENTATION -e "source openmrs.sql;"
 
-cd ../de-identified
-echo "Create de-identified database"
+# 
+DB_EXP_URL="jdbc:mysql://localhost:3306/$IMPLEMENTATION?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8"
+DB_EXP_JAVA_PARAMS="$JAVA_PARA -jar $HOME/staging/bin/db-exporter.jar"
+DB_EXP_PARAMS="$DB_EXP_JAVA_PARAMS -url=$DB_EXP_URL -user=$MYSQL_USER -password=$MYSQL_ROOT_PASSWD -configDir=$SOURCE_HOME/conf"
+
+BUILDFILES=$SOURCE_HOME/conf/builds/*.conf
+for bf in $BUILDFILES
+do
+  echo "Processing $bf file and creating $bf database..."
+  mkdir -f $STAGING_HOME/database/$bf
+
+  # Run the database exporter
+  DB_EXP_TARGET="-targetDirectory=$STAGING_HOME/database/$bf"
+  source $SOURCE_HOME/conf/builds/$bf
+  java $DB_EXP_PARAMS $DB_EXP_TARGET $JSON_FILES
+
+  # Move from output file to standard name
+  cd $STAGING_HOME/database/$bf
+  mv export_$(date +%Y)_$(date +%m)_$(date +%d)*.sql openmrs.sql
+done
+
+#cd ../de-identified
+#echo "Create de-identified database"
 #echo "url: $DB_EXP_URL"
 #echo "user: $MYSQL_USER"
 #echo "password: $MYSQL_ROOT_PASSWD"
-DB_EXP_URL="jdbc:mysql://localhost:3306/$IMPLEMENTATION?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8"
-java $JAVA_PARA -jar $HOME/staging/bin/db-exporter.jar -url=$DB_EXP_URL -user=$MYSQL_USER -password=$MYSQL_ROOT_PASSWD -configDir=$SOURCE_HOME/conf removeSyncData.json rwanda/deidentify.json
+#java $JAVA_PARA -jar $HOME/staging/bin/db-exporter.jar -url=$DB_EXP_URL -user=$MYSQL_USER -password=$MYSQL_ROOT_PASSWD -configDir=$SOURCE_HOME/conf removeSyncData.json rwanda/deidentify.json
 
-cd ../de-id-and-trim
-echo "Create de-identified and small trimmed database"
-java $JAVA_PARA -jar $HOME/staging/bin/db-exporter.jar -url=$DB_EXP_URL -user=$MYSQL_USER -password=$MYSQL_ROOT_PASSWD -configDir=$SOURCE_HOME/conf removeSyncData.json rwanda/deidentify.json rwanda/trimPatientsSmall.json
+#cd ../de-id-and-trim
+#echo "Create de-identified and small trimmed database"
+#java $JAVA_PARA -jar $HOME/staging/bin/db-exporter.jar -url=$DB_EXP_URL -user=$MYSQL_USER -password=$MYSQL_ROOT_PASSWD -configDir=$SOURCE_HOME/conf removeSyncData.json rwanda/deidentify.json rwanda/trimPatientsSmall.json
 
 # TBD?  no patients? trimmed providers and users?
 #cd ../no-patients
@@ -83,3 +106,6 @@ java $JAVA_PARA -jar $HOME/staging/bin/db-exporter.jar -url=$DB_EXP_URL -user=$M
 echo 'Create the timestamp'
 cd $STAGING_HOME
 touch LAST-UPDATE
+echo ''
+
+exit 0

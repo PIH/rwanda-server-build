@@ -30,3 +30,4 @@ do
 	chage -d 0 $user
 done
 
+exit 0

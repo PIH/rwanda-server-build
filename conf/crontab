@@ -2,9 +2,9 @@ MAILTO=eball@pih.org
 
 # Every night (1:30AM), copy all the openmrs files to staging server
 # RWINKWAVU
-#0 2 * * * /home/ball/Workspace/staging-server-build/scripts/nightly-copy.sh rwink >/home/ball/staging/logs/crontab.out 2>&1
-0  2 * * * /home/ball/Workspace/staging-server-build/scripts/nightly-copy.sh rwink-local >/home/ball/staging/logs/crontab.out 2>&1
+#0 2 * * * /home/ball/Workspace/staging-server-build/scripts/nightly-copy.sh rwink >/home/ball/staging/logs/build-rwink.log 2>&1
+0  2 * * * /home/ball/Workspace/staging-server-build/scripts/nightly-copy.sh rwink-local >/home/ball/staging/logs/build-rwink.log 2>&1
 
 # BUTARO
-#0 6 * * * /home/ball/Workspace/staging-server-build/scripts/nightly-copy.sh butaro >> /home/ball/staging/logs/crontab.out 2>&1
-0  6 * * * /home/ball/Workspace/staging-server-build/scripts/nightly-copy.sh butaro-local >> /home/ball/staging/logs/crontab.out 2>&1
+#0 6 * * * /home/ball/Workspace/staging-server-build/scripts/nightly-copy.sh butaro >> /home/ball/staging/logs/build-butaro.log 2>&1
+0  6 * * * /home/ball/Workspace/staging-server-build/scripts/nightly-copy.sh butaro-local >> /home/ball/staging/logs/build-butaro.log 2>&1

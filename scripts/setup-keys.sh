@@ -38,3 +38,5 @@ echo ''
 echo "Transfer client key to DB Server ($PROD_DB_SERVER)"
 echo "  ssh-copy-id $REMOTE_USER_NAME@$PROD_DB_SERVER -p $PROD_DB_SERVER_PORT"
 ssh-copy-id $REMOTE_USER_NAME@$PROD_DB_SERVER -p $PROD_DB_SERVER_PORT
+
+exit 0
