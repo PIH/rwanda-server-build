@@ -75,33 +75,18 @@ BUILDFILES=$BUILDDIR/*.conf
 for bf in $(basename $BUILDFILES)
 do
   echo "Processing $bf database..."
-  mkdir -p $STAGING_HOME/database/$bf
+  TARGET_DIR=$STAGING_HOME/database/$(echo $bf | cut -f1 -d'.')
+  mkdir -p $TARGET_DIR
 
   # Run the database exporter
-  DB_EXP_TARGET="-targetDirectory=$STAGING_HOME/database/$bf"
+  DB_EXP_TARGET="-targetDirectory=$TARGET_DIR"
   source $BUILDDIR/$bf
   java $DB_EXP_PARAMS $DB_EXP_TARGET $JSON_FILES
 
   # Move from output file to standard name
-  cd $STAGING_HOME/database/$bf
+  cd $TARGET_DIR
   mv export_$(date +%Y)_$(date +%m)_$(date +%d)*.sql openmrs.sql
 done
-
-#cd ../de-identified
-#echo "Create de-identified database"
-#echo "url: $DB_EXP_URL"
-#echo "user: $MYSQL_USER"
-#echo "password: $MYSQL_ROOT_PASSWD"
-#java $JAVA_PARA -jar $HOME/staging/bin/db-exporter.jar -url=$DB_EXP_URL -user=$MYSQL_USER -password=$MYSQL_ROOT_PASSWD -configDir=$SOURCE_HOME/conf removeSyncData.json rwanda/deidentify.json
-
-#cd ../de-id-and-trim
-#echo "Create de-identified and small trimmed database"
-#java $JAVA_PARA -jar $HOME/staging/bin/db-exporter.jar -url=$DB_EXP_URL -user=$MYSQL_USER -password=$MYSQL_ROOT_PASSWD -configDir=$SOURCE_HOME/conf removeSyncData.json rwanda/deidentify.json rwanda/trimPatientsSmall.json
-
-# TBD?  no patients? trimmed providers and users?
-#cd ../no-patients
-#echo "Create database without patients"
-#java $JAVA_PARA -jar $HOME/staging/bin/db-exporter.jar -url=$DB_EXP_URL -user=$MYSQL_USER -password=$MYSQL_ROOT_PASSWD -configDir=$SOURCE_HOME/conf removeSyncData.json rwanda/removeAllPatients.json
 
 # Show date/time of last update
 echo 'Create the timestamp'
