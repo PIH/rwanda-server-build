@@ -70,17 +70,18 @@ DB_EXP_URL="jdbc:mysql://localhost:3306/$IMPLEMENTATION?autoReconnect=true&useUn
 DB_EXP_JAVA_PARAMS="$JAVA_PARA -jar $HOME/staging/bin/db-exporter.jar"
 DB_EXP_PARAMS="$DB_EXP_JAVA_PARAMS -url=$DB_EXP_URL -user=$MYSQL_USER -password=$MYSQL_ROOT_PASSWD -configDir=$SOURCE_HOME/conf"
 
-BUILDDIR=$SOURCE_HOME/conf/database-exporter/builds/$COUNTRY
-BUILDFILES=$BUILDDIR/*.conf
-for bf in $(basename $BUILDFILES)
+BUILD_DIR=$SOURCE_HOME/conf/database-exporter/builds/$COUNTRY
+
+for bf in $BUILD_DIR/*.conf
 do
-  echo "Processing $bf database..."
-  TARGET_DIR=$STAGING_HOME/database/$(echo $bf | cut -f1 -d'.')
+  build=$(basename $bf)
+  echo "Processing $build database..."
+  TARGET_DIR=$STAGING_HOME/database/$(echo $build | cut -f1 -d'.')
   mkdir -p $TARGET_DIR
 
   # Run the database exporter
   DB_EXP_TARGET="-targetDirectory=$TARGET_DIR"
-  source $BUILDDIR/$bf
+  source $bf
   java $DB_EXP_PARAMS $DB_EXP_TARGET $JSON_FILES
 
   # Move from output file to standard name
