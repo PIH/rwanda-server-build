@@ -84,9 +84,16 @@ do
   source $bf
   java $DB_EXP_PARAMS $DB_EXP_TARGET $JSON_FILES
 
-  # Move from output file to standard name
+  # Clean up yesterdaty and move from output file to standard name
   cd $TARGET_DIR
-  mv export_$(date +%Y)_$(date +%m)_$(date +%d)*.sql openmrs.sql
+  rm -f openmrs.*
+  rm -f export_$(date --date="yesterday" +"%Y_%m_%d")*.log
+  mv export_$(date +"%Y_%m_%d")*.sql openmrs.sql
+
+  # Compress database.
+  # Compared gzip, 7zip, and bzip2.  7zip compresses to the smallest, but bzip2 is only 
+  # slightly larger and easier for users to decompress
+  bzip2 -fk openmrs.sql 
 done
 
 # Show date/time of last update
