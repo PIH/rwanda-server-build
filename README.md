@@ -1,21 +1,20 @@
 staging-server-build
 ====================
-This is used to stage software and databases for building PIH OpenMRS reporting, test, demo, and dev servers.  
-Scripts and cron build server with latest versions of war, omods and databases, which are trimmed nightly.
+This is used to stage software and databases for building PIH OpenMRS reporting, test, demo, and dev servers.   Scripts and a cron build a staging server with the latest versions of the OpenMRS war, modules and databases.  Database sql files are created nightly which are de-identified, trimmed, and minimized.
 
-h2. Installation
-
+I. Installation
+===============
 Run these as "normal" user (ie. ball, tomcat6, openmrs, or whatever), except as noted:
 
+<code>
 mkdir $HOME/.envStaging
 mkdir $HOME/Workspace
 cd $HOME/Workspace
 git clone https://github.com/PIH/openmrs-contrib-databaseexporter database-exporter
 git clone https://github.com/PIH/staging-server-build.git
+</code>
 
-These files are used to build the staging server and include in the stating-server-build package.  Only Rwanda 
-database exporter configuration is complete and available in github, but Malawi and Haiti configuration will 
-follow and simple to create.
+These files are used to build the staging server and include in the stating-server-build package.  Only the Rwanda database exporter configuration is complete and available in github, but Malawi and Haiti configuration will follow and simple to create.
 
 <pre>
 staging-server-build/
@@ -56,7 +55,7 @@ staging-server-build/
     └── users-and-packages.sh
 </pre>
 
-======================
+
 II. Configuration  
 ======================
 
@@ -68,32 +67,34 @@ staging-server-build/conf/*.conf into the $HOME directory and modified:
 3. cp $HOME/Workspace/staging-server-build/conf/users.conf $HOME/.envStaging/.
 4. Modify list of users and temporary password
 
-=================================
+
 III. Users and software packages
 =================================
 As root user, create Linux users and install pre-requisitive software:
 
+<code>
 modify $HOME/.envStaging/users.conf
 cd $HOME/Workspace/staging-server-build/scripts
 sudo ./users-and-packages.sh
+</code>
 
-=================================
 IV. Password-less access
 =================================
 Setup ssh keys for password-less file transfer.  This is currently not automated, but very straightforward with running this script:
 
+<code>
 cd $HOME/Workspace/staging-server-build/scripts
 ./setup-keys.sh [butaro|rwink]
+</code>
 
-===============================
 V. Create directory structure
 ===============================
-A directory hierarchy is created on the staging server with the appropriate version of OpenMRS, modules and databases.  
-It is is created under $HOME/staging/$IMPLEMENTATION where IMPLEMENTATION = rwink, butaro, lower-neno, upper-neno, etc.
-Use this command and implementation parameter:  
+A directory hierarchy is created on the staging server with the appropriate version of OpenMRS, modules and databases.  It is is created under $HOME/staging/$IMPLEMENTATION where IMPLEMENTATION = rwink, butaro, lower-neno, upper-neno, etc.  Use this command and implementation parameter:  
 
+<code>
 cd $HOME/Workspace/staging-server-build/scripts
 ./setup-folder.sh [rwink|butaro]
+</code>
 
 This is an example of a staging area for 2 Rwanda implementations (rwink and butaro):
 
@@ -127,33 +128,37 @@ staging/
     └── warfile
 </pre>
 
-======================================
+
 VI. Build database export executable
 ======================================
 Build the database export executable which quickly creates de-identified and trimmed databases.
 
+<code>
 cd $HOME/Workspace/staging-server-build/scripts
 ./install-db-exporter.sh
+</code>
 
-======================================
 VII.  Update software and database 
 ======================================
 To update to the latest war, modules, and all the various databases on the staging server, run these commands:
 
+<code>
 cd $HOME/Workspace/staging-server-build/scripts
 ./nightly-copy.sh [rwink|butaro|rwink-local|butaro-local]
+</code>
 
 rwink-local and butaro-local are similar to the other files, but with private IP addresses for faster file transfer.
 
-====================================
+
 VIII.  Automatic update
 ====================================
-For an automatic nightly build, use the example crontab file.  Change the crontab (ie. time, date, MAILTO) for 
-the correct implementation.
+For an automatic nightly build, use the example crontab file.  Change the crontab (ie. time, date, MAILTO) for the correct implementation.
 
+<code>
 cd $HOME/Workspace/staging-server-build/conf
 crontab crontab
 crontab -l
+</code>
 
 
 =========================
@@ -162,10 +167,10 @@ Appendix:  Future tasks
 1. Error recovery from incomplete builds.
 2. Change user and $HOME for staging server and puppet scripts.
 3. Use puppet for building servers and updating openmrs software and database.
-  a. Choose and get latest appropriate of OpenMRS database -- de-identified, trimmed, metadata only
-  b. Get latest version of OpenMRS software (war and modules)
-  c. Stop tomcat 
-  d. Cleanup tomcat directories (webapps/openmrs, work, temp, logs?)
-  e. Copy software to tomcat
-  f. Source database
-  g. Start tomcat 
+  1. Choose and get latest appropriate of OpenMRS database -- de-identified, trimmed, metadata only
+  2. Get latest version of OpenMRS software (war and modules)
+  3. Stop tomcat 
+  4. Cleanup tomcat directories (webapps/openmrs, work, temp, logs?)
+  5. Copy software to tomcat
+  6. Source database
+  7. Start tomcat 
