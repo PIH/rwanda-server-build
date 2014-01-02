@@ -3,9 +3,8 @@ staging-server-build
 This is used to stage software and databases for building PIH OpenMRS reporting, test, demo, and dev servers.  
 Scripts and cron build server with latest versions of war, omods and databases, which are trimmed nightly.
 
-===================
-I.  Installation
-===================
+h2. Installation
+
 Run these as "normal" user (ie. ball, tomcat6, openmrs, or whatever), except as noted:
 
 mkdir $HOME/.envStaging
@@ -18,6 +17,7 @@ These files are used to build the staging server and include in the stating-serv
 database exporter configuration is complete and available in github, but Malawi and Haiti configuration will 
 follow and simple to create.
 
+<pre>
 staging-server-build/
 ├── conf
 │   ├── crontab
@@ -54,6 +54,7 @@ staging-server-build/
     ├── setup-keys.sh
     ├── update-db-exporter.sh
     └── users-and-packages.sh
+</pre>
 
 ======================
 II. Configuration  
@@ -96,6 +97,7 @@ cd $HOME/Workspace/staging-server-build/scripts
 
 This is an example of a staging area for 2 Rwanda implementations (rwink and butaro):
 
+<pre>
 staging/
 ├── bin
 ├── logs
@@ -123,7 +125,7 @@ staging/
     │   ├── dev
     │   └── production
     └── warfile
-
+</pre>
 
 ======================================
 VI. Build database export executable
@@ -167,4 +169,3 @@ Appendix:  Future tasks
   e. Copy software to tomcat
   f. Source database
   g. Start tomcat 
-   
