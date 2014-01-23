@@ -7,10 +7,10 @@ I. Installation
 Run these as "normal" user (ie. ball, tomcat6, openmrs, or whatever), except as noted:
 
 <code>
-mkdir $HOME/.envStaging
-mkdir $HOME/Workspace
-cd $HOME/Workspace
-git clone https://github.com/PIH/openmrs-contrib-databaseexporter database-exporter
+mkdir $HOME/.envStaging \\
+mkdir $HOME/Workspace \\
+cd $HOME/Workspace \\
+git clone https://github.com/PIH/openmrs-contrib-databaseexporter database-exporter \\
 git clone https://github.com/PIH/staging-server-build.git
 </code>
 
