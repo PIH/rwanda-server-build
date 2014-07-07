@@ -3,7 +3,7 @@
 set -e
 
 case $1 in
-	rwink | butaro | rwink-local | butaro-local )
+	mdrtb | rwink | butaro | rwink-local | butaro-local )
 					source $HOME/.envStaging/$1.conf
 					source $HOME/.envStaging/staging.conf
 					echo ""
@@ -14,7 +14,7 @@ case $1 in
 	malawi ) 		echo "$1 configuration is incomplete"
 			 		exit 1 ;;
 
-	* )  			echo "Usage: $0 rwink|butaro|rwink-local|butaro-local|malawi"
+	* )  			echo "Usage: $0 mdrtb|rwink|butaro|rwink-local|butaro-local|malawi"
 		 			exit 1
 esac
 

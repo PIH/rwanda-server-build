@@ -8,14 +8,14 @@
 set -e
 
 case $1 in
-	rwink | butaro ) 	echo "$0:  STARTING $1 folder creation"
+	mdrtb | rwink | butaro ) 	echo "$0:  STARTING $1 folder creation"
 						echo "Creating $HOME/staging/$1 directory"
 						source $HOME/.envStaging/$1.conf;;
 
 	malawi | neno ) 	echo "$1 configuration is incomplete, but rwanda works ;)"
 			 			exit 1 ;;
 
-	* )  		echo "Usage: $0 rwink|butaro|malawi"
+	* )  		echo "Usage: $0 mdrtb|rwink|butaro|malawi"
 		 		exit 1
 esac
 
