@@ -48,17 +48,12 @@
 				"replacement": "${patient_identifier_id}"
 			},
 			"replacementGenerators": {
-				"Rwanda National ID": {
+				"MDR-TB Program Identifier": {
 					"@class" : "org.openmrs.contrib.databaseexporter.generator.SequentialGenerator",
 					"firstIdentifierBase": "0000000001",
 					"baseCharacterSet": "0123456789"
 				},
-				"IMB ID": {
-					"@class" : "org.openmrs.contrib.databaseexporter.generator.VerhoeffGenerator",
-					"firstIdentifierBase": "90100000",
-					"baseCharacterSet": "0123456789"
-				},
-				"IMB Primary Care Registration ID": {
+				"ZL EMR ID": {
 					"@class" : "org.openmrs.contrib.databaseexporter.generator.LuhnGenerator",
 					"firstIdentifierBase": "00001",
 					"baseCharacterSet": "0123456789ACEFHJKMNPUWXY",
@@ -68,16 +63,10 @@
 			}
 		},
 		{
-			"@class": "org.openmrs.contrib.databaseexporter.transform.RwandaLocationTransform"
-		},
-		{
 			"@class": "org.openmrs.contrib.databaseexporter.transform.PersonAddressTransform"
 		},
 		{
 			"@class": "org.openmrs.contrib.databaseexporter.transform.PersonNameTransform"
-		},
-		{
-			"@class": "org.openmrs.contrib.databaseexporter.transform.RwandaAddressHierarchyTransform"
 		},
 		{
 			"@class": "org.openmrs.contrib.databaseexporter.transform.ScrambleStatesInWorkflowTransform",

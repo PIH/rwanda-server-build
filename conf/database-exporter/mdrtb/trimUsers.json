@@ -3,7 +3,7 @@
 		"queries": [
 			{
 				"@class" : "org.openmrs.contrib.databaseexporter.query.UserIdentificationQuery",
-				"userNames": ["mseaton"]
+				"userNames": ["mseaton","ball"]
 			}
 		]
 	}
