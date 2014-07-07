@@ -84,7 +84,7 @@ do
   source $bf
   java $DB_EXP_PARAMS $DB_EXP_TARGET $JSON_FILES
 
-  # Clean up yesterdaty and move from output file to standard name
+  # Clean up yesterday and move from output file to standard name
   cd $TARGET_DIR
   rm -f openmrs.*
   rm -f export_$(date --date="yesterday" +"%Y_%m_%d")*.log
